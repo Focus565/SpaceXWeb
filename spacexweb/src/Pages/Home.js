@@ -1,7 +1,6 @@
-import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid'
+import Grid from '@material-ui/core/Grid';
 
 const HomePage = (
     <>
@@ -21,9 +20,8 @@ const HomePage = (
                     </Typography>
                 </Grid>
                 <Grid item>
-                    {"    "}
                     <Typography variant="body1">
-                        {' '}<strong>Space Exploration Technologies Corp. (SpaceX) </strong>is an American aerospace manufacturer and space transportation services company headquartered in Hawthorne, California. It was founded in 2002 by Elon Musk with the goal of reducing space transportation costs to enable the colonization of Mars. SpaceX has developed several launch vehicles and rocket engines, as well as the Dragon cargo spacecraft and the Starlink satellite constellation (providing internet access), and has flown humans and cargo to the International Space Station on the SpaceX Dragon 2.
+                        <strong>Space Exploration Technologies Corp. (SpaceX) </strong>is an American aerospace manufacturer and space transportation services company headquartered in Hawthorne, California. It was founded in 2002 by Elon Musk with the goal of reducing space transportation costs to enable the colonization of Mars. SpaceX has developed several launch vehicles and rocket engines, as well as the Dragon cargo spacecraft and the Starlink satellite constellation (providing internet access), and has flown humans and cargo to the International Space Station on the SpaceX Dragon 2.
                     </Typography>
                 </Grid>
             {/* </div> */}
