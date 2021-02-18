@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-// import  DataGrid  from '@material-ui/data-grid';
+import Cards from '../Components/Card';
 
 
 
@@ -17,8 +17,12 @@ const Launches = () => {
         }
     )
     return (
-        <div>{JSON.stringify(launches,null,2)}</div>
-        // <div>{launches.map((launch) =>(<li>{launch.mission_name}</li>))}</div>
+        // <div>{JSON.stringify(launches,null,2)}</div>
+        <div style={{ display: 'flex',flexFlow: 'row wrap'}}>
+        {launches.map((launch) => (
+            <Cards var={launch} page={'Launch'}/>
+        ))}
+    </div>
     )
 }
 
