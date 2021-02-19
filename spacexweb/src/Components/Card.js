@@ -2,6 +2,9 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from '@material-ui/core/Button';
+import AnimatedModal from "../Components/Modal";
+import  Chip from '@material-ui/core/Chip';
+
 
 const Cards = (props) => {
     if (props.var == null){
@@ -12,12 +15,10 @@ const Cards = (props) => {
         if (props.page === 'Rocket') {
 
         return (
-        <Card>
-            <CardMedia style={{ height: 0, paddingTop: '50%' }} image={(props.var.flickr_images)}/>
+        <Card >
+            <CardMedia style={{ height: 200, width: 200 }} image={(props.var.flickr_images)}/>
             <CardContent ><h2>{props.var.rocket_name}</h2>{props.var.description}</CardContent>
-            <Button variant="contained" color="primary" href="#contained-buttons">
-            more
-            </Button>
+            <AnimatedModal var={props.var} page={'Rocket'}/>
         </Card>
         )
     }
@@ -25,10 +26,15 @@ const Cards = (props) => {
         return(
             <Card style={{flex: "1 1 calc(100% / 5)", margin:"1em", textAlign:'center'}}>
             <CardMedia style = {{ height: 200,width:200}} image={(props.var.links.mission_patch)}/>
-            <CardContent><h2>{props.var.mission_name}</h2></CardContent>
-            <Button style={{marginBottom:"0.5em"}} variant="contained" color="primary" href="#contained-buttons">
+            <CardContent><h2>{props.var.mission_name}</h2>
+            <Chip label={props.var.launch_year} />
+            <Chip label={props.var.rocket.rocket_name}  />
+            <Chip label={props.var.launch_success == true ? 'success' : 'failed'} />
+            </CardContent>
+            {/* <Button style={{marginBottom:"0.5em"}} variant="contained" color="primary" href="#contained-buttons">
             more
-            </Button>
+            </Button> */}
+            <AnimatedModal var={props.var} page={'Launch'}/>
         </Card>
         )
     }
