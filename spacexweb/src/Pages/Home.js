@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 const HomePage = (
     <>
         <Container maxWidth="xl">      
-            <div className="headerName" style={{height:"100vh", width:'100%', display:"flex" ,justifyContent:"center" , alignItems:"center",background:"grey" }}>
+            <div className="headerName" style={{height:"calc(100vh - 4em)", width:'100%', display:"flex" ,justifyContent:"center" , alignItems:"center",background:"grey", marginTop:"4em" }}>
                 <Typography variant="h1" align="center" >
                 SpaceX
                 </Typography>

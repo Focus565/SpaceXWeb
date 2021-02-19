@@ -9,10 +9,11 @@ const Cards = (props) => {
             <div></div>
         )
     }else {
-    if (props.page === 'Rocket'){
+        if (props.page === 'Rocket') {
+
         return (
         <Card>
-            <CardMedia style = {{ height: 0, paddingTop: '50%'}} image={(props.var.flickr_images)}/>
+            <CardMedia style={{ height: 0, paddingTop: '50%' }} image={(props.var.flickr_images)}/>
             <CardContent ><h2>{props.var.rocket_name}</h2>{props.var.description}</CardContent>
             <Button variant="contained" color="primary" href="#contained-buttons">
             more
@@ -20,12 +21,12 @@ const Cards = (props) => {
         </Card>
         )
     }
-    if(props.page === 'Launch'){
+        if (props.page === 'Launch') {
         return(
-            <Card>
+            <Card style={{flex: "1 1 calc(100% / 5)", margin:"1em", textAlign:'center'}}>
             <CardMedia style = {{ height: 200,width:200}} image={(props.var.links.mission_patch)}/>
-            <CardContent ><h2>{props.var.mission_name}</h2></CardContent>
-            <Button variant="contained" color="primary" href="#contained-buttons">
+            <CardContent><h2>{props.var.mission_name}</h2></CardContent>
+            <Button style={{marginBottom:"0.5em"}} variant="contained" color="primary" href="#contained-buttons">
             more
             </Button>
         </Card>

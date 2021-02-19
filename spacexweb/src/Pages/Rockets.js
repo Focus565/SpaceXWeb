@@ -12,10 +12,10 @@ const Rockets = () => {
             }
             fetchRockets()
         }
-    )
+    ,[])
     return (
         // <div>{JSON.stringify(rockets,null,2)}</div>
-    <div>
+    <div style={{marginTop:"4em"}}>
         {rockets.map((rocket) => (
             <Cards var={rocket} page={'Rocket'}/>
         ))}

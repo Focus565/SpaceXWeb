@@ -12,6 +12,7 @@ const styleNavBar = {
     display: "flex",
     justifyContent: "flex-end",
     alignItems: "center",
+    top:"0"
 }
 const linkSelected = {
     color: "grey",
