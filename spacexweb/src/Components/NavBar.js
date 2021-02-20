@@ -11,6 +11,7 @@ const styleNavBar = {
   justifyContent: "flex-start",
   alignItems: "center",
   top: "0",
+  zIndex: "100",
 };
 const linkSelected = {
   color: "grey",

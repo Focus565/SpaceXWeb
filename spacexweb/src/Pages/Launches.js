@@ -76,7 +76,12 @@ const Launches = () => {
       }}
     >
       <div
-        style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          background: "white",
+        }}
       >
         {/* <IndexProvider> */}
         <SearchOption></SearchOption>
@@ -101,7 +106,9 @@ const Launches = () => {
       </div>
       {/* If good change launches to loading */}
       {launches.length === 0 ? (
-        <CircularProgress style={{ margin: "auto" }}></CircularProgress>
+        <CircularProgress
+          style={{ position: "absolute", top: "50%", left: "50%" }}
+        ></CircularProgress>
       ) : null}
       <div
         style={{
