@@ -1,6 +1,7 @@
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
+import { Link, animateScroll as scroll } from "react-scroll";
 
 const handleScrollDown = () => {};
 const HomePage = (
@@ -34,10 +35,20 @@ const HomePage = (
       >
         SpaceX
       </Typography>
-      <a
+      <Link
+        className="ca3-scroll-down-link ca3-scroll-down-arrow"
+        // activeClass="ca3-scroll-down-link ca3-scroll-down-arrow"
+        to="detail"
+        spy={true}
+        smooth={true}
+        // offset={-70}
+        duration={500}
+      ></Link>
+      {/* <a
         className="ca3-scroll-down-link ca3-scroll-down-arrow"
         onClick={{ handleScrollDown }}
-      ></a>
+        href="#detail"
+      ></a> */}
     </Container>
     <Container
       style={{
@@ -46,6 +57,7 @@ const HomePage = (
         justifyContent: "center",
         alignItems: "center",
       }}
+      name="detail"
     >
       <Grid container direction="column">
         {/* <div className="informationSpaceX" style={{ height: "100vh", display: "flex", justifyContent: "left", alignItems: "center" }}> */}
