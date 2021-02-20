@@ -1,16 +1,12 @@
-import React from 'react'
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import { useIndex } from '../Context/IndexContext'
+import React from "react";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
+import { useIndex } from "../Context/IndexContext";
 
-
-const options = [
-  'Rocket Name',
-  'Launch Year'
-];
+const options = ["Rocket Name", "Launch Year"];
 
 const SearchOption = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -20,7 +16,7 @@ const SearchOption = () => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMenuItemClick = (event, index) => {   
+  const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
     handleIndexChange(index);
     setAnchorEl(null);
@@ -29,10 +25,6 @@ const SearchOption = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleOnChange = () => {
-    console.log(selectedIndex)
-    handleIndexChange(selectedIndex);
-  }
   return (
     <div style={{}}>
       <List component="nav">
@@ -43,7 +35,10 @@ const SearchOption = () => {
           aria-label="Search Option"
           onClick={handleClickListItem}
         >
-          <ListItemText primary="Search Option" secondary={options[selectedIndex]} />
+          <ListItemText
+            primary="Search Option"
+            secondary={options[selectedIndex]}
+          />
         </ListItem>
       </List>
       <Menu
@@ -67,6 +62,6 @@ const SearchOption = () => {
       </Menu>
     </div>
   );
-}
+};
 
-export default SearchOption
+export default SearchOption;
