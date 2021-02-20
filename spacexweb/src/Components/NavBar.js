@@ -1,6 +1,7 @@
 import { Container } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
+import "../index.css";
 
 const styleNavBar = {
   position: "fixed",
@@ -19,7 +20,6 @@ const linkSelected = {
 
 const linkStyled = {
   color: "black",
-  textDecoration: "none",
   margin: "1em",
   fontSize: "1.5vw",
 };
@@ -32,13 +32,29 @@ const NavBar = () => {
           <NavLink to="/">
             <img src="images/logo.png" style={{ width: "15vw" }} />
           </NavLink>
-          <NavLink exact to="/" activeStyle={linkSelected} style={linkStyled}>
+          <NavLink
+            exact
+            to="/"
+            activeStyle={linkSelected}
+            style={linkStyled}
+            className="linkClass"
+          >
             Home
           </NavLink>
-          <NavLink to="/Rockets" activeStyle={linkSelected} style={linkStyled}>
+          <NavLink
+            to="/Rockets"
+            activeStyle={linkSelected}
+            style={linkStyled}
+            className="linkClass"
+          >
             Rockets
           </NavLink>
-          <NavLink to="/Launches" activeStyle={linkSelected} style={linkStyled}>
+          <NavLink
+            to="/Launches"
+            activeStyle={linkSelected}
+            style={linkStyled}
+            className="linkClass"
+          >
             Launches
           </NavLink>
         </Container>

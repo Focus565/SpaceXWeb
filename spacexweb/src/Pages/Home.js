@@ -2,6 +2,7 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 
+const handleScrollDown = () => {};
 const HomePage = (
   <>
     <Container maxWidth="xl">
@@ -33,6 +34,10 @@ const HomePage = (
       >
         SpaceX
       </Typography>
+      <a
+        className="ca3-scroll-down-link ca3-scroll-down-arrow"
+        onClick={{ handleScrollDown }}
+      ></a>
     </Container>
     <Container
       style={{
