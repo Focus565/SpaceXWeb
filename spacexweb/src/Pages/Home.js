@@ -44,11 +44,6 @@ const HomePage = (
         // offset={-70}
         duration={500}
       ></Link>
-      {/* <a
-        className="ca3-scroll-down-link ca3-scroll-down-arrow"
-        onClick={{ handleScrollDown }}
-        href="#detail"
-      ></a> */}
     </Container>
     <Container
       style={{
