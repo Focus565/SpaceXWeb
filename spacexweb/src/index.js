@@ -12,13 +12,14 @@ import {
 } from "react-router-dom";
 import Rockets from './Pages/Rockets';
 import Launches from './Pages/Launches';
+import {IndexProvider} from './Context/IndexContext'
 
 
 
 ReactDOM.render(
   <React.StrictMode>
     {/* <App /> */}
-    
+    <IndexProvider>
     <Router>
         <NavBar />
         <Switch>
@@ -32,7 +33,8 @@ ReactDOM.render(
             <Launches />
           </Route>
         </Switch>
-    </Router>
+      </Router>
+      </IndexProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

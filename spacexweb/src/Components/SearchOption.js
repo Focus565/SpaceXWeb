@@ -4,37 +4,37 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import useIndex from '../Context/IndexContext'
+import { useIndex } from '../Context/IndexContext'
 
 
 const options = [
   'Rocket Name',
-  'Launch Year',
-  'Launch Success'
+  'Launch Year'
 ];
 
 const SearchOption = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
-
-
+  const { handleIndexChange } = useIndex();
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMenuItemClick = (event, index) => {
+  const handleMenuItemClick = (event, index) => {   
     setSelectedIndex(index);
+    handleIndexChange(index);
     setAnchorEl(null);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
-  // const handleOnChange = () => {
-  //   return ()
-  // }
+  const handleOnChange = () => {
+    console.log(selectedIndex)
+    handleIndexChange(selectedIndex);
+  }
   return (
-    <div style={{ margin: "1em" }}>
+    <div style={{}}>
       <List component="nav">
         <ListItem
           button

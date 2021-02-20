@@ -3,15 +3,13 @@ import { createContext, useCallback, useContext, useState } from 'react'
 const IndexContext = createContext();
 
 export const IndexProvider = (props) => {
-    const [index, setIndex] = useState(0)
-    const handleIndexChange = useCallback(
-        (e) => {
-            setIndex(e.target.value)
-        }
-    ,[])
+    const [indexValue, setIndex] = useState(0)
+    const handleIndexChange = (index) => {
+        setIndex(index)
+    }
     return (
         <IndexContext.Provider value={{
-            index,
+            indexValue,
             handleIndexChange
         }}>
             {props.children}
