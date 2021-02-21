@@ -12,7 +12,9 @@ import {
 } from "react-router-dom";
 import Rockets from './Pages/Rockets';
 import Launches from './Pages/Launches';
-import {IndexProvider} from './Context/IndexContext'
+import RocketDetail from './Pages/RocketDetail';
+import LaunchDetail from './Pages/LaunchDetail';
+import {IndexProvider} from './Context/IndexContext';
 
 
 
@@ -29,8 +31,12 @@ ReactDOM.render(
           <Route path="/Rockets">
             <Rockets />
           </Route>
-          <Route path="/Launches">
+          <Route path="/Launches" >
             <Launches />
+          </Route>
+          <Route  path="/RocketDetail" component={RocketDetail}>
+          </Route>
+          <Route  path="/LaunchDetail" component={LaunchDetail}>
           </Route>
         </Switch>
       </Router>

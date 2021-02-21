@@ -1,9 +1,9 @@
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import AnimatedModal from "../Components/Modal";
 import Chip from "@material-ui/core/Chip";
-
+import {Link} from "react-router-dom";
+import Button from '@material-ui/core/Button';
 const Cards = (props) => {
   if (props.var == null) {
     return <div></div>;
@@ -17,9 +17,11 @@ const Cards = (props) => {
           />
           <CardContent>
             <h2>{props.var.rocket_name}</h2>
-            {props.var.description}
+            {props.var.description}<div></div>
+            <Link to={{pathname:"/RocketDetail",state:{id:props.var.rocket_id}}}> 
+            <Button variant="contained" color="primary">more </Button>
+            </Link>
           </CardContent>
-          <AnimatedModal var={props.var} page={"Rocket"} />
         </Card>
       );
     }
@@ -44,10 +46,9 @@ const Cards = (props) => {
               label={props.var.launch_success == true ? "success" : "failed"}
             />
           </CardContent>
-          {/* <Button style={{marginBottom:"0.5em"}} variant="contained" color="primary" href="#contained-buttons">
-            more
-            </Button> */}
-          <AnimatedModal var={props.var} page={"Launch"} />
+          <Link to={{pathname:"/LaunchDetail",state:{id:props.var.flight_number}}}> 
+            <Button variant="contained" color="primary">more </Button>
+            </Link>
         </Card>
       );
     }
