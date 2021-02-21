@@ -1,38 +1,26 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import Cards from "../Components/Card";
 import TextField from "@material-ui/core/TextField";
-import SearchOption from "../Components/SearchOption";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { useIndex } from "../Context/IndexContext";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import { Typography } from "@material-ui/core";
 
 let i = 1;
 const Launches = () => {
-  const { indexValue } = useIndex();
-  const [boolLaunch, setBoolLaunch] = useState(true);
-  const [text, setText] = useState("");
-  const handleChange = (event) => {
-    setBoolLaunch(event.target.value);
-  };
-  // const renderCard = () => {
-  //     if (text.length > 0) {
-  //         console.log(filteredSearch)
-  //         return filteredSearch.map((launch) => (<Cards key={i++} var={launch} page={'Launch'}/>))
-  //     } else {
-  //         console.log(filteredSearch)
-  //         return launches.map((launch) => (<Cards key={i++} var={launch} page={'Launch'}/>))
-  //     }
-
-  // }
-  const handleSearch = useCallback(
-    (event) => {
-      setText(event.target.value);
-    },
-    [setText, indexValue]
-  );
+  const [boolLaunch, setBoolLaunch] = useState("");
+  const [rocketName, setRocketName] = useState("");
+  const [launchYear, setLaunchYear] = useState("");
   const [launches, setLaunches] = useState([]);
+  const handleChangeRocketName = useCallback((event) => {
+    setRocketName(event.target.value);
+  });
+  const handleChangeLaunchYear = useCallback((event) => {
+    setLaunchYear(event.target.value);
+  });
+  const handleBoolChange = useCallback((event) => {
+    setBoolLaunch(event.target.value);
+  });
   useEffect(() => {
     const fetchLaunchs = async () => {
       const response = await fetch("https://api.spacexdata.com/v3/launches");
@@ -41,31 +29,28 @@ const Launches = () => {
     };
     fetchLaunchs();
   }, []);
-  // useEffect(() => {
-  //     console.log(indexValue)
-  // }, [indexValue])
+
   const filteredSearch = useMemo(() => {
-    if (indexValue === 0) {
-      return launches.filter((eachLaunch) => {
-        // console.log(eachLaunch.rocket.rocket_name.includes(text))
-        return (
-          eachLaunch.rocket.rocket_name.includes(String(text)) &&
-          eachLaunch.launch_success == boolLaunch
-        );
-      });
-    } else if (indexValue === 1) {
-      return launches.filter((eachLaunch) => {
-        // console.log(eachLaunch.launch_year.includes(text))
-        return (
-          eachLaunch.launch_year.includes(String(text)) &&
-          eachLaunch.launch_success == boolLaunch
-        );
-      });
+    if (rocketName.length > 0 || launchYear.length > 0 || boolLaunch != "") {
+      if (boolLaunch != "") {
+        return launches.filter((eachLaunch) => {
+          return (
+            eachLaunch.rocket.rocket_name.includes(String(rocketName)) &&
+            eachLaunch.launch_year.includes(String(launchYear)) &&
+            eachLaunch.launch_success == boolLaunch
+          );
+        });
+      } else {
+        return launches.filter((eachLaunch) => {
+          return (
+            eachLaunch.rocket.rocket_name.includes(String(rocketName)) &&
+            eachLaunch.launch_year.includes(String(launchYear))
+          );
+        });
+      }
     }
-  }, [text, indexValue, boolLaunch]);
-  console.log(launches);
-  // console.log(filteredSearch)
-  // console.log(text.length)
+  }, [rocketName, launchYear, boolLaunch]);
+
   return (
     <div
       style={{
@@ -84,23 +69,34 @@ const Launches = () => {
         }}
       >
         {/* <IndexProvider> */}
-        <SearchOption></SearchOption>
+        <Typography variant="h6">Rocket Name :</Typography>
         <TextField
-          label="Search Field"
+          label="Rocket Name"
           variant="outlined"
-          value={text}
-          onChange={handleSearch}
+          value={rocketName}
+          onChange={handleChangeRocketName}
+          style={{ margin: "1em", flexGrow: "1" }}
+        ></TextField>
+        <Typography variant="h6">Launch Year :</Typography>
+        <TextField
+          label="Launch Year"
+          variant="outlined"
+          value={launchYear}
+          onChange={handleChangeLaunchYear}
           style={{ margin: "1em", flexGrow: "1" }}
         ></TextField>
         <Typography variant="h6">Launch Success :</Typography>
         <Select
           value={boolLaunch}
-          onChange={handleChange}
+          onChange={handleBoolChange}
           style={{ flexGrow: "0.5", margin: "1em" }}
           variant="outlined"
         >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
           <MenuItem value={true}>Success</MenuItem>
-          <MenuItem value={false}>Not Success</MenuItem>
+          <MenuItem value={false}>Fail</MenuItem>
         </Select>
         {/* </IndexProvider> */}
       </div>
@@ -117,14 +113,13 @@ const Launches = () => {
           justifyContent: "center",
         }}
       >
-        {text.length > 0
+        {filteredSearch != null
           ? filteredSearch.map((launch) => (
               <Cards key={i++} var={launch} page={"Launch"} />
             ))
           : launches.map((launch) => (
               <Cards key={i++} var={launch} page={"Launch"} />
             ))}
-        {/* {renderCard()} */}
       </div>
     </div>
   );
