@@ -33,7 +33,7 @@ const HomePage = (
           transform: "translate(-50%, -50%)",
         }}
       >
-        SpaceX
+        <strong>SpaceX</strong>
       </Typography>
       <Link
         className="ca3-scroll-down-link ca3-scroll-down-arrow"
