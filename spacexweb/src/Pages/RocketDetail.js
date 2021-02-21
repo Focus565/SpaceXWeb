@@ -1,61 +1,87 @@
-import { useState, useEffect } from 'react';
+import { Container, Typography } from "@material-ui/core";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
+const capitalizeFirstLetter = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
 const RocketDetail = (props) => {
-    const [rockets, setRockets] = useState([])
-    const rocket_id = props.location.state.id
+  const { id } = useParams();
+  const [rockets, setRockets] = useState([]);
+  const [LOADSTATUS, SETLOADSTATUS] = useState(true);
+  useEffect(() => {
+    const fetchRockets = async () => {
+      const response = await fetch(
+        `https://api.spacexdata.com/v3/rockets/` + id
+      );
+      const data = await response.json();
+      SETLOADSTATUS(false);
+      setRockets(data);
+    };
+    fetchRockets();
+  }, []);
 
-    useEffect(
-        () => {
-            const fetchRockets = async () => {
-                const response = await fetch(`https://api.spacexdata.com/v3/rockets/${rocket_id}`)
-                const data = await response.json()
-                setRockets(data)
-            }
-            fetchRockets()
-        }
-    ,[])
+  if (rockets.first_flight == null) {
+    return <div></div>;
+  }
 
-    if (rockets.first_flight == null){
-        return (
-            <div></div>
-        )}
-    return (
-    // <div>{rockets['first_flight']}</div>
-    <div style={{marginTop:"4em"}}>
-            <div >
+  console.log(rockets);
+  return (
+    <div style={{ marginTop: "5em" }}>
+      <Container
+        style={{
+          background: "white",
+          borderRadius: "4px",
+          paddingTop: "1em",
+          paddingBottom: "1em",
+        }}
+      >
+        <Typography>
+          <div>
             <h2>{rockets["rocket_name"]}</h2>
             <ul>
-                <li>Launch year: {rockets['launch_year']} </li>
-                <li>First flight: {rockets.first_flight} </li>
-                <li>Height: {rockets.height.meters} meters</li>
-                <li>Diameter: {rockets.diameter.meters} meters</li>
-                <li>Mass: {rockets.mass.kg} kg</li>
-                <li>Country: {rockets.country}</li>
-                <li>Status: {rockets.active == true ? 'active' : 'inactive'}</li>
+              <li>First flight: {rockets.first_flight} </li>
+              <li>Height: {rockets.height.meters} meters</li>
+              <li>Diameter: {rockets.diameter.meters} meters</li>
+              <li>Mass: {rockets.mass.kg} kg</li>
+              <li>Country: {rockets.country}</li>
+              <li>Status: {rockets.active == true ? "active" : "inactive"}</li>
             </ul>
-            <h4>payload</h4>
+            <h4>Payload</h4>
             <ul>
-            {rockets.payload_weights.map((i) => (
-            <li>{i.name} {i.kg} kg</li>
-          ))}
+              {rockets.payload_weights.map((i) => (
+                <li>
+                  {i.name} {i.kg} kg
+                </li>
+              ))}
             </ul>
-            <p>
-            {rockets['description']}
-            </p>
+            <p>{rockets["description"]}</p>
             <h3>Image</h3>
-            {rockets.flickr_images.map((i) => (
-            <img
-              src={i}
+            <div
               style={{
-                width: "400px",
-                height: "200px"
+                display: "flex",
+                justifyContent: "space-evenly",
+                flexWrap: "wrap",
+                alignContent: "space-evenly",
               }}
-            ></img>
-          ))}
-        </div>
+            >
+              {rockets.flickr_images.map((i) => (
+                <img
+                  src={i}
+                  style={{
+                    width: "25vw",
+                    height: "20vw",
+                    marginBottom: "0.25em",
+                  }}
+                  alt="rocketPicture"
+                ></img>
+              ))}
+            </div>
+          </div>
+        </Typography>
+      </Container>
     </div>
-
-    )
-}
+  );
+};
 
 export default RocketDetail;

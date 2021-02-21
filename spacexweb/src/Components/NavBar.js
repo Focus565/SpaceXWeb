@@ -2,6 +2,7 @@ import { Container } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import "../index.css";
+import logo from "../images/logo.png";
 
 const styleNavBar = {
   position: "fixed",
@@ -31,7 +32,11 @@ const NavBar = () => {
       <Typography>
         <Container maxWidth="xl" style={styleNavBar}>
           <NavLink to="/">
-            <img src="images/logo.png" style={{ width: "15vw" }} />
+            <img
+              src={logo}
+              style={{ width: "15vw", height: "auto" }}
+              alt="logo"
+            />
           </NavLink>
           <NavLink
             exact

@@ -37,7 +37,7 @@ const Cards = (props) => {
               <div></div>
               <Link
                 to={{
-                  pathname: "/RocketDetail",
+                  pathname: "/Rockets/" + props.var.rocket_id,
                   state: { id: props.var.rocket_id },
                 }}
               >
@@ -64,7 +64,12 @@ const Cards = (props) => {
           }}
         >
           <CardMedia
-            style={{ height: "10vw", width: "10vw", margin: "auto" }}
+            style={{
+              height: "10vw",
+              width: "10vw",
+              margin: "auto",
+              marginTop: "0.5em",
+            }}
             image={props.var.links.mission_patch}
           />
           <CardContent>
@@ -87,11 +92,15 @@ const Cards = (props) => {
           </CardContent>
           <Link
             to={{
-              pathname: "/LaunchDetail",
+              pathname: "/Launches/" + props.var.flight_number,
               state: { id: props.var.flight_number },
             }}
           >
-            <Button variant="contained" color="primary">
+            <Button
+              variant="contained"
+              color="primary"
+              style={{ marginBottom: "0.5em" }}
+            >
               more{" "}
             </Button>
           </Link>

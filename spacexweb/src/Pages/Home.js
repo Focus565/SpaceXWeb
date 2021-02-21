@@ -2,8 +2,8 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import { Link, animateScroll as scroll } from "react-scroll";
+import bg from "../images/bg01.jpg";
 
-const handleScrollDown = () => {};
 const HomePage = (
   <>
     <Container maxWidth="xl">
@@ -15,7 +15,7 @@ const HomePage = (
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          background: "url('images/bg01.jpg')",
+          background: `url(${bg})`,
           backgroundPosition: "center",
           backgroundSize: "cover",
           marginTop: "4em",

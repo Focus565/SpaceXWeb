@@ -99,7 +99,7 @@ const Launches = () => {
           variant="outlined"
         >
           <MenuItem value={"none"}>
-            <em>None</em>
+            <em>All</em>
           </MenuItem>
           <MenuItem value={true}>Success</MenuItem>
           <MenuItem value={false}>Fail</MenuItem>
