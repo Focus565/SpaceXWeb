@@ -8,7 +8,7 @@ import { Typography } from "@material-ui/core";
 
 let i = 1;
 const Launches = () => {
-  const [boolLaunch, setBoolLaunch] = useState("");
+  const [boolLaunch, setBoolLaunch] = useState("none");
   const [rocketName, setRocketName] = useState("");
   const [launchYear, setLaunchYear] = useState("");
   const [launches, setLaunches] = useState([]);
