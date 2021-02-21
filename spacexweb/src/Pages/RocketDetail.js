@@ -33,9 +33,16 @@ const RocketDetail = (props) => {
                 <li>Country: {rockets.country}</li>
                 <li>Status: {rockets.active == true ? 'active' : 'inactive'}</li>
             </ul>
+            <h4>payload</h4>
+            <ul>
+            {rockets.payload_weights.map((i) => (
+            <li>{i.name} {i.kg} kg</li>
+          ))}
+            </ul>
             <p>
             {rockets['description']}
             </p>
+            <h3>Image</h3>
             {rockets.flickr_images.map((i) => (
             <img
               src={i}
