@@ -20,6 +20,7 @@ const Launches = () => {
   });
   const handleBoolChange = useCallback((event) => {
     setBoolLaunch(event.target.value);
+    console.log(event.target.value);
   });
   useEffect(() => {
     const fetchLaunchs = async () => {
@@ -31,8 +32,12 @@ const Launches = () => {
   }, []);
 
   const filteredSearch = useMemo(() => {
-    if (rocketName.length > 0 || launchYear.length > 0 || boolLaunch != "") {
-      if (boolLaunch != "") {
+    if (
+      rocketName.length > 0 ||
+      launchYear.length > 0 ||
+      boolLaunch != "none"
+    ) {
+      if (boolLaunch != "none") {
         return launches.filter((eachLaunch) => {
           return (
             eachLaunch.rocket.rocket_name.includes(String(rocketName)) &&
@@ -50,7 +55,6 @@ const Launches = () => {
       }
     }
   }, [rocketName, launchYear, boolLaunch]);
-
   return (
     <div
       style={{
@@ -69,7 +73,9 @@ const Launches = () => {
         }}
       >
         {/* <IndexProvider> */}
-        <Typography variant="h6">Rocket Name :</Typography>
+        <Typography variant="h6" style={{ margin: "1em" }}>
+          Rocket Name :
+        </Typography>
         <TextField
           label="Rocket Name"
           variant="outlined"
@@ -92,7 +98,7 @@ const Launches = () => {
           style={{ flexGrow: "0.5", margin: "1em" }}
           variant="outlined"
         >
-          <MenuItem value="">
+          <MenuItem value={"none"}>
             <em>None</em>
           </MenuItem>
           <MenuItem value={true}>Success</MenuItem>
