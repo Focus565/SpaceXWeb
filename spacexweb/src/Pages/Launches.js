@@ -110,6 +110,7 @@ const Launches = () => {
       {launches.length === 0 ? (
         <CircularProgress
           style={{ position: "absolute", top: "50%", left: "50%" }}
+          color="secondary"
         ></CircularProgress>
       ) : null}
       <div

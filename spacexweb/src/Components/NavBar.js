@@ -6,7 +6,7 @@ import logo from "../images/logo.png";
 
 const styleNavBar = {
   position: "fixed",
-  background: "rgba(209,209,209,0.43)",
+  background: "var(--color3)",
   height: "4em",
   display: "flex",
   justifyContent: "flex-start",
@@ -18,6 +18,9 @@ const linkSelected = {
   color: "grey",
   textDecoration: "none",
   cursor: "default",
+  background: "black",
+  color: "white",
+  borderRadius: "4px",
 };
 
 const linkStyled = {

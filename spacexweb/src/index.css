@@ -1,3 +1,9 @@
+:root {
+  --color1: #011627;
+  --color2: #fdfffc;
+  --color3: #df2935;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -5,9 +11,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #f7b267;
+  background: #011627;
 }
-
+/* body::-webkit-scrollbar {
+  overflow-y: scroll;
+} */
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -95,4 +103,24 @@ html body [data-ca3_iconfont="ETmodules"]::before {
     transform: translate(0, 20px);
     opacity: 0;
   }
+}
+
+/* testing css area */
+section {
+  padding: 16px;
+  margin: 16px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.125);
+  height: 64px;
+  opacity: 0;
+  transform: translate(0, 50%);
+  visibility: hidden;
+  transition: opacity 300ms ease-out, transform 300ms ease-out;
+  will-change: opacity, visibility;
+}
+
+.is-visible {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+  display: flex;
 }
