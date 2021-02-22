@@ -39,6 +39,8 @@ const RocketDetail = (props) => {
         <Typography>
           <div>
             <h2>{rockets["rocket_name"]}</h2>
+            
+            <p>{rockets["description"]}</p>
             <ul>
               <li>First flight: {rockets.first_flight} </li>
               <li>Height: {rockets.height.meters} meters</li>
@@ -55,7 +57,6 @@ const RocketDetail = (props) => {
                 </li>
               ))}
             </ul>
-            <p>{rockets["description"]}</p>
             <h3>Image</h3>
             <div
               style={{
