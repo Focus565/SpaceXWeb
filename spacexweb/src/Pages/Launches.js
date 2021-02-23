@@ -161,7 +161,7 @@ const Launches = () => {
           dataLength={launches.length}
           next={handlePageChange}
           hasMore={pagination.hasMore}
-          loader={launches.length}
+          loader={""}
           scrollableTarget="scrollableDiv"
           style={{ overflow: 'hidden' }}
         ></InfiniteScroll>
