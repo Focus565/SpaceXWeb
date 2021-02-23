@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(1, 0, 3),
-    marginTop: "8em",
+    marginTop: "6em",
     textAlign: "center",
     display: "flex",
     "flex-direction": "column",

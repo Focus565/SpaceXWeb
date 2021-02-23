@@ -73,6 +73,7 @@ const RocketDetail = (props) => {
                     width: "25vw",
                     height: "20vw",
                     marginBottom: "0.25em",
+                    borderRadius: "6px",
                   }}
                   alt="rocketPicture"
                 ></img>
