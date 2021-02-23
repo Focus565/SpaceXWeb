@@ -144,12 +144,12 @@ const Launches = () => {
         {/* </IndexProvider> */}
       </div>
       {/* If good change launches to loading */}
-      {launches.length === 0 ? (
+      {/* {launches.length === 0 ? (
         <CircularProgress
           style={{ position: "absolute", top: "50%", left: "50%" }}
           color="secondary"
         ></CircularProgress>
-      ) : null}
+      ) : null} */}
       <div
         style={{
           display: "flex",
@@ -161,13 +161,18 @@ const Launches = () => {
           dataLength={launches.length}
           next={handlePageChange}
           hasMore={pagination.hasMore}
-          loader={""}
+          loader={<div><CircularProgress disableShrink color="secondary" /></div>}
           scrollableTarget="scrollableDiv"
-          style={{ overflow: 'hidden' }}
-        ></InfiniteScroll>
+          style={{ overflow: 'hidden' ,display: "flex",
+          flexFlow: "row wrap",justifyContent: "center",}}
+        >
+          <div style={{ overflow: 'hidden' ,display: "flex",
+          flexFlow: "row wrap",justifyContent: "center",}}>
         {launches.map((launch) => (
               <Cards key={i++} var={launch} page={"Launch"} />
             ))}
+          </div>
+        </InfiniteScroll>
       </div>
     </div>
   );
