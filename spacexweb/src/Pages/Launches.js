@@ -1,60 +1,94 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import {useRef, useState, useEffect, useCallback, useMemo } from "react";
 import Cards from "../Components/Card";
 import TextField from "@material-ui/core/TextField";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import { Typography } from "@material-ui/core";
-
+import InfiniteScroll from 'react-infinite-scroll-component'
+import queryString from 'query-string'
 let i = 1;
+const initialState = {
+  filter: {
+    launchYear: '',
+    rocketName: '',
+    launchSuccess: 'all',
+  },
+  pagination: {
+    perPage: 12,
+    current: 1,
+    hasMore: true,
+  },
+}
 const Launches = () => {
-  const [boolLaunch, setBoolLaunch] = useState("none");
-  const [rocketName, setRocketName] = useState("");
-  const [launchYear, setLaunchYear] = useState("");
-  const [launches, setLaunches] = useState([]);
-  const handleChangeRocketName = useCallback((event) => {
-    setRocketName(event.target.value);
-  });
-  const handleChangeLaunchYear = useCallback((event) => {
-    setLaunchYear(event.target.value);
-  });
-  const handleBoolChange = useCallback((event) => {
-    setBoolLaunch(event.target.value);
-    console.log(event.target.value);
-  });
-  useEffect(() => {
-    const fetchLaunchs = async () => {
-      const response = await fetch("https://api.spacexdata.com/v3/launches");
-      const data = await response.json();
-      setLaunches(data);
-    };
-    fetchLaunchs();
-  }, []);
-
-  const filteredSearch = useMemo(() => {
-    if (
-      rocketName.length > 0 ||
-      launchYear.length > 0 ||
-      boolLaunch != "none"
-    ) {
-      if (boolLaunch != "none") {
-        return launches.filter((eachLaunch) => {
-          return (
-            eachLaunch.rocket.rocket_name.includes(String(rocketName)) &&
-            eachLaunch.launch_year.includes(String(launchYear)) &&
-            eachLaunch.launch_success == boolLaunch
-          );
-        });
-      } else {
-        return launches.filter((eachLaunch) => {
-          return (
-            eachLaunch.rocket.rocket_name.includes(String(rocketName)) &&
-            eachLaunch.launch_year.includes(String(launchYear))
-          );
-        });
+  const [filter, setFilter] = useState(initialState.filter)
+  const [pagination, setPagination] = useState(initialState.pagination)
+  const [launches, setLaunches] = useState([])
+  const controllerRef = useRef()
+  const handleFilterChange = useCallback(
+    (e) => {
+      const { name, value } = e.target
+      setFilter((prev) => ({ ...prev, [name]: value }))
+      setPagination(initialState.pagination)
+      setLaunches([])
+    },
+    [],
+  )
+  const handlePageChange = useCallback(
+    () => {
+      setPagination((prev) => ({ ...prev, current: prev.current + 1 }))
+    },
+    [],
+  )
+  const filterParams = useMemo(
+    () => queryString.stringify({
+      id: true,
+      launch_year: filter.launchYear,
+      rocket_name: filter.rocketName,
+      launch_success: filter.launchSuccess === 'all' ? '' : filter.launchSuccess,
+      limit: pagination.perPage,
+      offset: (pagination.current - 1) * pagination.perPage,
+    }, { skipEmptyString: true }),
+    [filter.launchSuccess, filter.launchYear, filter.rocketName, pagination],
+  )
+  // useEffect(
+  //   () => {
+  //     setFilter(initialState.filter)
+  //     setPagination(initialState.pagination)
+  //     setLaunches([])
+  //   },
+  //   [],
+  // )
+  useEffect(
+    () => {
+      const fetchLaunches = async () => {
+        if (controllerRef.current) {
+          controllerRef.current.abort()
+        }
+        const controller = new AbortController()
+        controllerRef.current = controller
+        try {
+          const response = await fetch(`https://api.spacexdata.com/v3/launches?${filterParams}`, {
+            signal: controllerRef.current?.signal,
+          })
+          if (response.status !== 200) {
+            console.error(new Error(`API Error: status code ${response.status}`))
+          } else {
+            const json = await response.json()
+            setLaunches((prev) => ([...prev, ...json]))
+            if (json.length < pagination.perPage) {
+              setPagination((prev) => ({ ...prev, hasMore: false }))
+            }
+          }
+          controllerRef.current = null
+        } catch (err) {
+          console.error(err)
+        }
       }
-    }
-  }, [rocketName, launchYear, boolLaunch]);
+      fetchLaunches()
+    },
+    [filterParams, pagination.perPage],
+  )
   return (
     <div
       style={{
@@ -79,30 +113,33 @@ const Launches = () => {
         <TextField
           label="Rocket Name"
           variant="outlined"
-          value={rocketName}
-          onChange={handleChangeRocketName}
+          name="rocketName"
+          value={filter.rocketName}
+          onChange={handleFilterChange}
           style={{ margin: "1em", flexGrow: "1" }}
         ></TextField>
         <Typography variant="h6">Launch Year :</Typography>
         <TextField
           label="Launch Year"
+          name="launchYear"
           variant="outlined"
-          value={launchYear}
-          onChange={handleChangeLaunchYear}
+          value={filter.launchYear}
+          onChange={handleFilterChange}
           style={{ margin: "1em", flexGrow: "1" }}
         ></TextField>
         <Typography variant="h6">Launch Success :</Typography>
         <Select
-          value={boolLaunch}
-          onChange={handleBoolChange}
+          name="launchSuccess"
+          value={filter.launchSuccess}
+          onChange={handleFilterChange}
           style={{ flexGrow: "0.5", margin: "1em" }}
           variant="outlined"
         >
-          <MenuItem value={"none"}>
+          <MenuItem value="all">
             <em>All</em>
           </MenuItem>
-          <MenuItem value={true}>Success</MenuItem>
-          <MenuItem value={false}>Fail</MenuItem>
+          <MenuItem value="true">Success</MenuItem>
+          <MenuItem value="false">Fail</MenuItem>
         </Select>
         {/* </IndexProvider> */}
       </div>
@@ -120,11 +157,15 @@ const Launches = () => {
           justifyContent: "center",
         }}
       >
-        {filteredSearch != null
-          ? filteredSearch.map((launch) => (
-              <Cards key={i++} var={launch} page={"Launch"} />
-            ))
-          : launches.map((launch) => (
+        <InfiniteScroll
+          dataLength={launches.length}
+          next={handlePageChange}
+          hasMore={pagination.hasMore}
+          loader={launches.length}
+          scrollableTarget="scrollableDiv"
+          style={{ overflow: 'hidden' }}
+        ></InfiniteScroll>
+        {launches.map((launch) => (
               <Cards key={i++} var={launch} page={"Launch"} />
             ))}
       </div>
