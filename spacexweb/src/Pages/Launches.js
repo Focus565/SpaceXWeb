@@ -15,7 +15,7 @@ const initialState = {
     launchSuccess: 'all',
   },
   pagination: {
-    perPage: 12,
+    perPage: 9,
     current: 1,
     hasMore: true,
   },
@@ -152,8 +152,7 @@ const Launches = () => {
       ) : null} */}
       <div
         style={{
-          display: "flex",
-          flexFlow: "row wrap",
+
           justifyContent: "center",
         }}
       >
@@ -164,10 +163,10 @@ const Launches = () => {
           loader={<div><CircularProgress disableShrink color="secondary" /></div>}
           scrollableTarget="scrollableDiv"
           style={{ overflow: 'hidden' ,display: "flex",
-          flexFlow: "row wrap",justifyContent: "center",}}
+          flexFlow: "row wrap",justifyContent: "center"}}
         >
           <div style={{ overflow: 'hidden' ,display: "flex",
-          flexFlow: "row wrap",justifyContent: "center",}}>
+          flexFlow: "row wrap",justifyContent: "center","min-width": "100%"}}>
         {launches.map((launch) => (
               <Cards key={i++} var={launch} page={"Launch"} />
             ))}
