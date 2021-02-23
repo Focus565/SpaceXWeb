@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
+import { useParams } from "react-router-dom";
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     backgroundColor: theme.palette.background.paper,
@@ -19,12 +21,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 const LaunchDetail = (props) => {
   const [launches, setLaunches] = useState([]);
-  const rocket_id = props.location.state.id;
+  const { id } = useParams();
   const classes = useStyles();
   useEffect(() => {
     const fetchLaunchs = async () => {
       const response = await fetch(
-        `https://api.spacexdata.com/v3/launches/${rocket_id}`
+        `https://api.spacexdata.com/v3/launches/${id}`
       );
       const data = await response.json();
       setLaunches(data);
